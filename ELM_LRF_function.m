@@ -9,32 +9,37 @@ load([param_name '.mat']);
 startup;
 % load testing data
 fprintf('Loading testing data...\n');
-load D:\Dataset\random_weights_paper1\norbdata\norb_testdata;
+%load D:\Dataset\random_weights_paper1\norbdata\norb_testdata;
+load norbdata/norbdata/norb_testdata.mat 
 X_t=X;
 Y_t=Y;
 clear X Y;
 NumberofTestingData=length(Y_t);
-
+fprintf('numberoftest Data %f \n',NumberofTestingData);
 % no need to preprocess the labels of testing data
 % testing data: nonlinear transform through the sinle-layer convolutional
 % ELM
 
 % load training data
 fprintf('Loading training data...\n');
-load D:\Dataset\random_weights_paper1\norbdata\norb_traindata.mat;
+%load D:\Dataset\random_weights_paper1\norbdata\norb_traindata.mat;
+load norbdata/norbdata/norb_traindata.mat 
 NumberofTrainingData=length(Y);
 
 % preprocessing of the labels of training data
 fprintf('Preprocess the labels of training data...\n');
 number_class=length(unique(Y));
+fprintf('lengthof unique Y : number_class is : %f \n',number_class);
 
 temp_Y=-ones(number_class, NumberofTrainingData);
 for i=1:NumberofTrainingData;
     temp_Y(Y(i), i)=1;
 end
-
+%fprintf(':%f\n');
 image_size=sqrt(size(X, 1)/input_ch);
 num_examples=size(X, 2);
+fprintf('image_size is: %f; sqrt(size(X,1)| %f  /input_ch %f ) \n',image_size,size(X,1),input_ch);
+
 
 % Begins to generate random filters
 fprintf('Begins to generate random filters...\n');
@@ -43,6 +48,9 @@ tic;
 layer_param=param.network_params{1};
 layer_param.input_ch=input_ch;
 layer_param.image_size=image_size;
+disp('--1 file');
+disp(param.network_params);
+disp(param.network_params{1});
 
 % randomly generate the weight matrix W
 [W, rf_index, pool_index, h_dim, tied_units]=gen_weights_my2(layer_param);
