@@ -10,7 +10,8 @@ startup;
 % load testing data
 fprintf('Loading testing data...\n');
 %load D:\Dataset\random_weights_paper1\norbdata\norb_testdata;
-load norbdata/norbdata/norb_testdata.mat 
+load norbdata/norb_testdata.mat;
+%load norbdata/norb_traindata.mat;
 X_t=X;
 Y_t=Y;
 clear X Y;
@@ -23,7 +24,8 @@ fprintf('numberoftest Data %f \n',NumberofTestingData);
 % load training data
 fprintf('Loading training data...\n');
 %load D:\Dataset\random_weights_paper1\norbdata\norb_traindata.mat;
-load norbdata/norbdata/norb_traindata.mat 
+load norbdata/norb_traindata.mat;
+%norbdata/norb_traindata.mat;
 NumberofTrainingData=length(Y);
 
 % preprocessing of the labels of training data

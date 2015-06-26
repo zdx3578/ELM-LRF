@@ -14,12 +14,12 @@ if param.pooling_size ~= 0
 
         fprintf('in init pool ind my2 now run if temp line \n');
         fprintf('old spatial pool index is %f %f \n',p_dim^2,h_dim^2);
-	fprintf('p_dim is: %f;spatial_pool_index size is %f  \n',p_dim, size( spatial_pool_index)  );
+	fprintf('p_dim is: %f;spatial_pool_index size is %f %f \n \n',p_dim, size( spatial_pool_index)  );
 
     temp = [ones(param.pooling_size*2+1),zeros(param.pooling_size*2+1,h_dim);zeros(h_dim,param.pooling_size*2+1+h_dim)];
     n = 0; 
         fprintf('pooling_size is %f \n',param.pooling_size );
-        fprintf('temp size is %f %f %f %f %f %f  \n',size(temp) );
+        fprintf('temp size is %f %f   \n',size(temp) );
     for a = 0:p_dim-1
         for b = 0:p_dim-1
             n = n + 1;
@@ -29,8 +29,10 @@ if param.pooling_size ~= 0
             spatial_pool_index(n,:) = reshape(curr_pool(param.pooling_size+1:h_dim+param.pooling_size,param.pooling_size+1:h_dim+param.pooling_size),h_dim^2,1);
         end
     end
-	! sleep 2 ;
-	! free -m ;!sleep 1; ! free -m
+
+        fprintf('spatial pool index  size is %f %f   \n',size( spatial_pool_index) );
+	! sleep 0.3 ;
+	! free -m ;!sleep 0.21; ! free -m
 %        fprintf('in init pool ind my2 now run if expanded pool index line \n');    
 	fprintf(1,'p_dim is : %f;h_dim is : %f; num_maps is : %f \n ',p_dim,h_dim,param.num_maps );
         fprintf(1,'!!!!! change it !!!!old expand_pool_index is zeors(%f,%f) \n \n ',p_dim^2*param.num_maps,h_dim^2*param.num_maps );
