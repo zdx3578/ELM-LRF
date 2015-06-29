@@ -43,8 +43,8 @@ for b=1:param.tile_size^2;
         n=n+1;
         ortho_index(n)=b+c*(param.tile_size^2);
     end
-	disp(ortho_index)
-        fprintf(' up is ortho_index   \n\n  ' ,  ) ;    
+%	disp(ortho_index)
+%        fprintf(' up is ortho_index %f   \n\n  ' , ortho_index ) ;    
 
     temp=W(ortho_index, :);
     [m, n]=size(temp);

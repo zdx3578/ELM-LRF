@@ -44,8 +44,8 @@ if param.pooling_size ~= 0
 %        fprintf('in init pool ind my2 now run if expanded pool index for   \n');
     for a = 0:param.num_maps-1
         expanded_pool_index(a*p_dim^2 + 1:(a+1)*p_dim^2, a*h_dim^2+1 : (a+1)*h_dim^2 ) = spatial_pool_index;
-	fprintf('expanded_pool_index(%f:%f,%f:%f) = spatial_pool_index \n', (a*p_dim + 1) ,(a+1)*p_dim, (a*h_dim+1) , (a+1)*h_dim ) ;
-        fprintf(' expanded_pool index is %f %f \n',size(expanded_pool_index));
+%	fprintf('expanded_pool_index(%f:%f,%f:%f) = spatial_pool_index \n', (a*p_dim^2 + 1) ,(a+1)*p_dim^2, (a*h_dim^2+1) , (a+1)*h_dim^2 ) ;
+%        fprintf(' expanded_pool index is %f %f \n',size(expanded_pool_index));
     end
     
     pool_index = expanded_pool_index;
@@ -54,6 +54,6 @@ if param.pooling_size ~= 0
 end
         fprintf('in init pool ind my2 now run sparse \n');
 pool_index = sparse(logical(pool_index));
-	fprintf('pool index size is %f \n',size(pool_index));
+	fprintf('pool index size is %f %f  \n',size(pool_index));
 end
 
