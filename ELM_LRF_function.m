@@ -40,7 +40,7 @@ end
 %fprintf(':%f\n');
 image_size=sqrt(size(X, 1)/input_ch);
 num_examples=size(X, 2);
-fprintf('image_size is: %f; sqrt(size(X,1)| %f  /input_ch %f ) \n',image_size,size(X,1),input_ch);
+fprintf('image_size is: %f;image-size=sqrt(  size(X,1):%f  /input_ch:%f ) \n',image_size,size(X,1),input_ch);
 
 
 % Begins to generate random filters
@@ -50,7 +50,7 @@ tic;
 layer_param=param.network_params{1};
 layer_param.input_ch=input_ch;
 layer_param.image_size=image_size;
-disp('--1 file');
+disp('--1 file; -- param.network_params');
 disp(param.network_params);
 disp(param.network_params{1});
 
@@ -60,11 +60,15 @@ disp(param.network_params{1});
 % update parameters for the next layer
 image_size=h_dim;
 input_ch=size(rf_index, 1)/(image_size^2);
+        fprintf('input_ch  : %f \n\n  ' , input_ch  ) ;
 
 % forwardprop X through current layer to generate input for the next
 % layer
 W_temp=expand_rf(layer_param, h_dim, tied_units, W);
+	        fprintf('af expand; W_temp size is : %f %f \n\n  ' ,size(W_temp)  ) ;
+
 W_temp=full_size(W_temp, rf_index);
+                fprintf('after fullsize; W_temp size is : %f %f \n\n  ' ,size(W_temp)  ) ;
 [dummy, X]=two_layer_forwardprop(X, W_temp, pool_index, layer_param.l1_act, layer_param.l2_act); 
 time_network=toc;
 

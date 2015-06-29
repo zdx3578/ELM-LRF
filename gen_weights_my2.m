@@ -12,22 +12,29 @@ function [ W, rf_index, pool_index, h_dim, tied_units ] = gen_weights_my2( param
 
 
 % initialize indices for rf windows, pooling and weights tying
+	fprintf('-----gen weight my file -  init rf indices file - \n');
 [rf_index, h_dim, num_windows]=initialize_rf_indices(param);
-        fprintf('init pooling indeces \n');
+        fprintf('-----init pooling indeces \n');
 pool_index=initialize_pooling_indices_my2(param, h_dim);
-fprintf('gen wei 2 init tied\n');
+fprintf('-----gen wei 2 ----- init tied units\n');
 tied_units=initialize_tied_units(param, h_dim);
 
 % To make the results reproducible, we use a random seed 0;
 randn('state', 0);
 fprintf('randn W \n');
 W(1:param.num_maps*h_dim^2,:) = randn(param.num_maps*h_dim^2,param.input_ch*param.image_size^2);
+        fprintf(' size of W is : %f %f  \n\n  ' ,size(W)  ) ;
+	disp(size(W));
 	fprintf('W*rf_index\n');
 W = W.*rf_index;
+        fprintf('af *rf_index, size of W is : %f %f  \n\n  ' ,size(W)  ) ;
 W = shrink(rf_index,W);
+        fprintf('af shrink, size of W is : %f %f  \n\n  ' ,size(W)  ) ;
+
 
 % combine tied units into a single average or summed rf
 W=collapse_rf(W, tied_units, param);
+        fprintf('after collapse_rf  size of W is : %f %f  \n\n  ' ,size(W)  ) ;
 
 % orthogonalize collapsed rfs looking at the same patch of the image
 for b=1:param.tile_size^2;
@@ -36,7 +43,9 @@ for b=1:param.tile_size^2;
         n=n+1;
         ortho_index(n)=b+c*(param.tile_size^2);
     end
-    
+	disp(ortho_index)
+        fprintf(' up is ortho_index   \n\n  ' ,  ) ;    
+
     temp=W(ortho_index, :);
     [m, n]=size(temp);
     if m<=n;

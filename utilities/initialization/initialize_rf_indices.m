@@ -1,7 +1,14 @@
 function [rf_index, h_dim, num_windows] = initialize_rf_indices (param)
 disp('--rf index file');
 % Create index for overlaping receptive fields (1 input channel)
+	disp( param );
 h_dim = length(1:param.step:param.image_size-param.window_size+1);
+
+	disp( 5:3:param.image_size-param.window_size+1 );
+%	disp ( param.step:param.image_size-param.window_size+1  );
+%        disp ( param.step:param.image_size-param.window_size  );
+%        disp (  param.image_size-param.window_size  );	
+%	fprintf('param.step:param.image_size-param.window_size : %f \n',param.step:param.image_size-param.window_size );
 	fprintf('h_dim is :%f \n',h_dim );
 rf_index = zeros(h_dim^2,param.image_size^2);
         fprintf('in init rf indices .now run 3 line rf_index is : %f,%f \n',size(rf_index)) ;
@@ -16,9 +23,9 @@ for a = 0:h_dim-1
     for b = 0:h_dim-1
          n = n + 1; 
          curr_rf = circshift(temp,[a*param.step,b*param.step]);
-	%fprintf('curr_rf size is : %f  %f \n ',size(curr_rf));
+%	fprintf('circshift(temp, [%f, %f]) \n ',a*param.step,b*param.step);
          rf_index(n,:) = reshape(curr_rf(1:param.image_size,1:param.image_size),param.image_size^2,1);
-	%fprintf('rf_index size is : %f  %f \n ',size(rf_index));
+%	fprintf('reshape (curr_rf(1:%f,1:%f),%f  \n ', param.image_size, param.image_size, param.image_size^2     );
     end
 end
         fprintf('in init rf indices .now run repmat 5 part \n');
